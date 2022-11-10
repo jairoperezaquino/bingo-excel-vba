@@ -1,0 +1,80 @@
+Public Function GenerateRandomNumbers(Numbers_Bot As Integer, Numbers_Top As Integer) As Integer()
+    ReDim Numbers(Numbers_Bot To Numbers_Top) As Integer
+    Dim Items As Integer
+    Dim Checked As Integer
+    Dim Rnd As Integer
+    Dim i As Integer
+        
+    'Generate a random number and insert it into the array
+    Numbers(1) = WorksheetFunction.RandBetween(Numbers_Bot, Numbers_Top)
+    Items = 1
+            
+    'Generate a random number, if it exists in the PlayedNumbers array , generate another
+    Do While Items < Numbers_Top
+        Checked = 0
+        
+        Do While Checked <> Items
+        
+            Checked = 0
+            Rnd = WorksheetFunction.RandBetween(Numbers_Bot, Numbers_Top)
+            
+            For i = 1 To Items
+                If Numbers(i) <> Rnd Then Checked = Checked + 1 Else Exit For
+            Next i
+            
+        Loop
+            'Push number and generated ball
+            Numbers(Items + 1) = Rnd
+            Items = Items + 1
+    Loop
+    
+   GenerateRandomNumbers = Numbers
+End Function
+
+Public Function GenerateBall(Number As Integer) As String
+    Dim Letter As String
+    Dim Ball As String
+    
+    If Number >= 1 And Number <= 15 Then
+        Letter = "B"
+    ElseIf Number > 15 And Number <= 30 Then
+        Letter = "I"
+    ElseIf Number > 30 And Number <= 45 Then
+        Letter = "N"
+    ElseIf Number > 45 And Number <= 60 Then
+        Letter = "G"
+    ElseIf Number > 60 And Number <= 75 Then
+        Letter = "O"
+    End If
+    
+    GenerateBall = Letter + CStr(Number)
+    
+End Function
+
+Public Sub MarkCard(CardFirstRow As Integer, CardLastRow As Integer, PlayedNumber As Integer)
+    Dim i As Integer
+    Dim CardNumber As Integer
+    Dim TargetRow As Integer
+    Dim TargetColumn As Integer
+    
+    For i = CardFirstRow To CardLastRow
+        CardNumber = Sheets("DB").Cells(i, 7)
+        
+        If CardNumber = PlayedNumber Then
+            TargetRow = Sheets("DB").Cells(i, 8)
+            TargetColumn = Sheets("DB").Cells(i, 9)
+            
+            Cells(TargetRow, TargetColumn).Interior.Color = RGB(229, 186, 181)
+        End If
+    Next i
+    
+End Sub
+
+Public Sub GenericFormatCleanUp()
+    Sheets("Bingo").Range("F2") = ""
+    Sheets("Bingo").Range("B13") = ""
+    Sheets("Bingo").Range("G13") = ""
+    Sheets("Bingo").Range("L13") = ""
+    Sheets("Bingo").Range("R2:V16").Interior.Color = xlNone
+    Sheets("Bingo").Range("Z6:AN20").Interior.Color = xlNone
+End Sub
