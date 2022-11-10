@@ -24,3 +24,6 @@ Hope you lke it!
 * AutoMarcadoCartilla: Boolean "SI" or "NO", it'll mark your own card if the picked number matches with any of your card numbers.
 
 * LeerBolillero: Boolean "SI" or "NO", Excel will actually read and speak the picked number. It uses your OS language.
+
+## Demo
+![EXCEL_hQYO2oNh6M](https://user-images.githubusercontent.com/65935742/201020305-04bc9810-e5b3-4e13-a024-bfec5dbdd843.gif)
